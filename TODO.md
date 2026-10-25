@@ -8,7 +8,7 @@ This checklist tracks the step-by-step implementation for BookLeaf Technical Ass
 ### Progress Overview
 
 - [x] **Phase 0:** Specification & Environment Setup (6/6 completed)
-- [ ] **Phase 1:** Bubble Database Design & Dataset Import (1/9 completed)
+- [x] **Phase 1:** Bubble Database Design & Dataset Import (9/9 completed)
 - [ ] **Phase 2:** Authentication & Privacy Architecture (0/8 completed)
 - [ ] **Phase 3:** Author Portal Implementation (0/12 completed)
 - [ ] **Phase 4:** Admin Portal Implementation (0/13 completed)
@@ -50,22 +50,22 @@ This checklist tracks the step-by-step implementation for BookLeaf Technical Ass
 
 ## Phase 1: Bubble Database Design & Dataset Import
 
-- [ ] **Task P1-01** `[Critical]` `[Req: DB-01]`  
+- [x] **Task P1-01** `[Critical]` `[Req: DB-01]`  
   Create `Author` custom data type in Bubble Data > Data types with fields:  
   `author_id` (text), `name` (text), `email` (text), `phone` (text), `city` (text), `joined_date` (date), `books` (List of Books).  
   *Acceptance Criteria:* All 7 fields visible in Data types tab.
 
-- [ ] **Task P1-02** `[Critical]` `[Req: DB-01, DB-03]`  
+- [x] **Task P1-02** `[Critical]` `[Req: DB-01, DB-03]`  
   Create `Book` custom data type with fields:  
   `book_id` (text), `author` (Author), `title` (text), `isbn` (text), `genre` (text), `publication_date` (date, nullable), `status` (text), `mrp` (number, nullable), `author_royalty_per_copy` (number, nullable), `total_copies_sold` (number), `total_royalty_earned` (number), `royalty_paid` (number), `royalty_pending` (number), `last_royalty_payout_date` (date, nullable), `print_partner` (text, nullable), `available_on` (List of texts).  
   *Acceptance Criteria:* All 16 fields defined; nullable fields allow empty values.
 
-- [ ] **Task P1-03** `[Critical]` `[Req: DB-01]`  
+- [x] **Task P1-03** `[Critical]` `[Req: DB-01]`  
   Create `NotificationLog` custom data type with fields:  
   `log_id` (text), `author` (Author), `idempotency_key` (text), `trigger_type` (text), `status` (text), `summary_content` (text), `error_message` (text), `requested_at` (date), `completed_at` (date).  
   *Acceptance Criteria:* Table created in Bubble ready for audit logging.
 
-- [ ] **Task P1-04** `[Critical]` `[Req: AUTH-01, AUTH-02]`  
+- [x] **Task P1-04** `[Critical]` `[Req: AUTH-01, AUTH-02]`  
   Extend built-in `User` data type with custom fields: `role` (text) and `linked_author` (Author).  
   *Acceptance Criteria:* `User` table contains `role` and `linked_author`.
 
@@ -73,19 +73,19 @@ This checklist tracks the step-by-step implementation for BookLeaf Technical Ass
   Prepare import files: extract `authors.csv` and `books.csv` from `FULLSTACK-SAMPLEDATA (1) (1) (1).json`, preserving null values and empty arrays.  
   *Acceptance Criteria:* CSV files generated with exact fields matching Bubble schema.
 
-- [ ] **Task P1-06** `[Critical]` `[Req: DB-02]`  
+- [x] **Task P1-06** `[Critical]` `[Req: DB-02]`  
   Import `authors.csv` into Bubble App Data.  
   *Acceptance Criteria:* Exactly 10 Author records exist in App Data.
 
-- [ ] **Task P1-07** `[Critical]` `[Req: DB-02]`  
+- [x] **Task P1-07** `[Critical]` `[Req: DB-02]`  
   Import `books.csv` into Bubble App Data, mapping each book's author to the corresponding `Author` record.  
   *Acceptance Criteria:* Exactly 18 Book records exist in App Data; parent author references valid.
 
-- [ ] **Task P1-08** `[High]` `[Req: DB-01]`  
+- [x] **Task P1-08** `[High]` `[Req: DB-01]`  
   Run one-time sync workflow to populate `Author.books` list for all 10 authors.  
   *Acceptance Criteria:* Querying `Author's books:count` matches number of books for each author.
 
-- [ ] **Task P1-09** `[Critical]` `[Req: DB-02]`  
+- [x] **Task P1-09** `[Critical]` `[Req: DB-02]`  
   Audit imported database totals against raw JSON figures.  
   *Acceptance Criteria:* Total Earned = ₹243,382; Total Paid = ₹202,543; Total Pending = ₹40,839.
 
