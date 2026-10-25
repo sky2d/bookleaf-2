@@ -7,8 +7,8 @@ This checklist tracks the step-by-step implementation for BookLeaf Technical Ass
 
 ### Progress Overview
 
-- [ ] **Phase 0:** Specification & Environment Setup (0/6 completed)
-- [ ] **Phase 1:** Bubble Database Design & Dataset Import (0/9 completed)
+- [x] **Phase 0:** Specification & Environment Setup (6/6 completed)
+- [ ] **Phase 1:** Bubble Database Design & Dataset Import (1/9 completed)
 - [ ] **Phase 2:** Authentication & Privacy Architecture (0/8 completed)
 - [ ] **Phase 3:** Author Portal Implementation (0/12 completed)
 - [ ] **Phase 4:** Admin Portal Implementation (0/13 completed)
@@ -22,27 +22,27 @@ This checklist tracks the step-by-step implementation for BookLeaf Technical Ass
 
 ## Phase 0: Specification & Environment Setup
 
-- [ ] **Task P0-01** `[Critical]` `[Req: DB-01]`  
+- [x] **Task P0-01** `[Critical]` `[Req: DB-01]`  
   Create free Bubble.io application named `bookleaf-royalty-portal`.  
   *Acceptance Criteria:* App created and accessible in Bubble editor; development URL active.
 
-- [ ] **Task P0-02** `[Critical]` `[Req: N8N-01]`  
+- [x] **Task P0-02** `[Critical]` `[Req: N8N-01]`  
   Install essential Bubble plugins: *API Connector* and *Toolbox* from the Bubble Plugin Store.  
   *Acceptance Criteria:* Plugins appear under Installed Plugins in Bubble settings.
 
-- [ ] **Task P0-03** `[Critical]` `[Req: N8N-01]`  
+- [x] **Task P0-03** `[Critical]` `[Req: N8N-01]`  
   Set up n8n instance (n8n Cloud 14-day trial or self-hosted via `npx n8n` / Docker).  
   *Acceptance Criteria:* n8n workflow canvas accessible in browser at `http://localhost:5678` or cloud domain.
 
-- [ ] **Task P0-04** `[Critical]` `[Req: N8N-01]`  
+- [x] **Task P0-04** `[Critical]` `[Req: N8N-01]`  
   If self-hosting n8n, expose instance to public internet via secure tunnel (`ngrok http 5678` or Cloudflare Tunnel).  
   *Acceptance Criteria:* Public HTTPS URL routes to local n8n instance.
 
-- [ ] **Task P0-05** `[Critical]` `[Req: AI-01]`  
+- [x] **Task P0-05** `[Critical]` `[Req: AI-01]`  
   Configure API credentials for chosen AI provider (Google AI Studio Gemini API free tier / Groq / OpenAI).  
   *Acceptance Criteria:* API key verified via test curl request returning HTTP 200.
 
-- [ ] **Task P0-06** `[High]` `[Req: SEC-01]`  
+- [x] **Task P0-06** `[High]` `[Req: SEC-01]`  
   Configure environment secrets: generate secure tokens for `X-BookLeaf-Secret` and `BUBBLE_API_TOKEN` and store in n8n credentials.  
   *Acceptance Criteria:* Secrets stored securely in environment variables, not hardcoded.
 
@@ -69,7 +69,7 @@ This checklist tracks the step-by-step implementation for BookLeaf Technical Ass
   Extend built-in `User` data type with custom fields: `role` (text) and `linked_author` (Author).  
   *Acceptance Criteria:* `User` table contains `role` and `linked_author`.
 
-- [ ] **Task P1-05** `[High]` `[Req: DB-02]`  
+- [x] **Task P1-05** `[High]` `[Req: DB-02]`  
   Prepare import files: extract `authors.csv` and `books.csv` from `FULLSTACK-SAMPLEDATA (1) (1) (1).json`, preserving null values and empty arrays.  
   *Acceptance Criteria:* CSV files generated with exact fields matching Bubble schema.
 
