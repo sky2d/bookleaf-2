@@ -1,0 +1,206 @@
+{
+  "name": "BookLeaf-Royalty-Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "bookleaf-royalty-summary",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        200,
+        300
+      ],
+      "id": "webhook-trigger"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"accepted\",\n  \"message\": \"Royalty summary request accepted and queued for processing.\"\n}",
+        "options": {
+          "responseCode": 202
+        }
+      },
+      "name": "Respond 202 Accepted",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        420,
+        180
+      ],
+      "id": "respond-202"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.headers['x-bookleaf-secret'] }}",
+              "value2": "bb3edfab6df019fe5910bfc148e9adc28937255b8e668fc2"
+            }
+          ]
+        }
+      },
+      "name": "Validate Secret",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        420,
+        380
+      ],
+      "id": "validate-secret"
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $input.first().json.body || $input.first().json;\nconst author = payload.author || {};\nconst books = payload.books || [];\nconst logId = payload.notification_log_id || ('LOG_' + (author.author_id || 'AUTH') + '_' + Date.now());\n\nlet totalEarned = 0;\nlet totalPaid = 0;\nlet totalPending = 0;\nlet publishedList = [];\nlet productionList = [];\n\nfor (const b of books) {\n  const earned = Number(b.total_royalty_earned) || 0;\n  const paid = Number(b.royalty_paid) || 0;\n  const pending = Number(b.royalty_pending) || 0;\n  totalEarned += earned;\n  totalPaid += paid;\n  totalPending += pending;\n\n  if (b.status === 'Published & Live') {\n    publishedList.push(`- \"${b.title}\" (${b.genre}): ${b.total_copies_sold || 0} copies sold @ ₹${b.author_royalty_per_copy || 0}/copy. Total Earned: ₹${earned}, Paid: ₹${paid}, Pending: ₹${pending}. Last Payout: ${b.last_royalty_payout_date || 'None'}`);\n  } else {\n    productionList.push(`- \"${b.title}\" (Status: ${b.status})`);\n  }\n}\n\nconst meetsThreshold = totalPending >= 1000;\nconst isZero = totalPending === 0;\n\nreturn {\n  notification_log_id: logId,\n  author_id: author.author_id || 'UNKNOWN',\n  author_name: author.name || 'Author',\n  author_email: author.email || '',\n  city: author.city || '',\n  total_earned: totalEarned,\n  total_paid: totalPaid,\n  total_pending: totalPending,\n  meets_threshold: meetsThreshold,\n  is_zero: isZero,\n  published_summary: publishedList.length > 0 ? publishedList.join('\\n') : 'No live publications',\n  production_summary: productionList.length > 0 ? productionList.join('\\n') : 'None'\n};"
+      },
+      "name": "Deterministic Math & Formatting",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        360
+      ],
+      "id": "math-formatting"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GROQ_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  JSON.stringify({\n    model: \"qwen/qwen3.8-27b\",\n    messages: [\n      {\n        role: \"system\",\n        content: \"You are the BookLeaf Publishing Author Relations AI Assistant.\\nYour mission is to generate a personalized, transparent, empathetic royalty summary email to the author.\\n\\nPOLICIES FROM BOOKLEAF KNOWLEDGE BASE:\\n1. Royalty Split: 80% net profit to the author, 20% to BookLeaf.\\n2. Cycle: Royalties calculated quarterly and disbursed within 45 days of quarter end via direct bank transfer.\\n3. Payout Threshold: ₹1,000 minimum threshold for bank disbursement. If pending balance is < ₹1,000, clearly explain that it rolls over to the next quarterly disbursement cycle. DO NOT promise an immediate payout if < ₹1,000.\\n4. Books in Production: If an author has books in cover design or typesetting, acknowledge them with encouragement and note they will begin earning upon publication.\\n5. Fully Paid: If pending is ₹0, celebrate that all royalties are paid up to date!\\n6. Tone: Warm, partner-first, professional, encouraging.\\n7. CRITICAL RULE: Use only the exact figures provided. Never fabricate numbers or dates.\"\n      },\n      {\n        role: \"user\",\n        content: `Author: ${$json.author_name}\\nCity: ${$json.city}\\nTotal Earned: ₹${$json.total_earned}\\nTotal Paid: ₹${$json.total_paid}\\nTotal Pending: ₹${$json.total_pending}\\nMeets ₹1,000 Threshold: ${$json.meets_threshold}\\nIs Fully Settled (₹0 Pending): ${$json.is_zero}\\n\\nPublished Books Breakdown:\\n${$json.published_summary}\\n\\nIn-Production Books:\\n${$json.production_summary}\\n\\nPlease write the complete email with Subject line and body.`\n      }\n    ],\n    temperature: 0.3\n  })\n}}"
+      },
+      "name": "Generate AI Email (Groq / Llama-3.3)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        860,
+        360
+      ],
+      "id": "generate-ai-email"
+    },
+    {
+      "parameters": {
+        "jsCode": "const prev = $('Deterministic Math & Formatting').first().json;\nconst aiRes = $input.first().json;\nconst emailContent = aiRes.choices?.[0]?.message?.content || '';\n\nif (!emailContent || emailContent.length < 50) {\n  throw new Error('AI email generation returned empty or invalid text');\n}\n\nreturn {\n  log_id: prev.notification_log_id,\n  author_name: prev.author_name,\n  status: 'Success',\n  summary_content: emailContent,\n  completed_at: new Date().toISOString()\n};"
+      },
+      "name": "Validate & Prepare Callback",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        360
+      ],
+      "id": "guardrail-check"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://bookleaf-royalty-portal-93860.bubbleapps.io/version-test/api/1.1/wf/update_notification_log",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 5040c42fa7d8940386276d840591f4c7"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"log_id\": \"{{ $json.log_id }}\",\n  \"status\": \"Success\",\n  \"summary_content\": {{ JSON.stringify($json.summary_content) }},\n  \"completed_at\": \"{{ $json.completed_at }}\"\n}"
+      },
+      "name": "Bubble Callback (Success)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1300,
+        360
+      ],
+      "id": "bubble-callback-success"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Respond 202 Accepted",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Validate Secret",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Secret": {
+      "main": [
+        [
+          {
+            "node": "Deterministic Math & Formatting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deterministic Math & Formatting": {
+      "main": [
+        [
+          {
+            "node": "Generate AI Email (Groq / Llama-3.3)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate AI Email (Groq / Llama-3.3)": {
+      "main": [
+        [
+          {
+            "node": "Validate & Prepare Callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate & Prepare Callback": {
+      "main": [
+        [
+          {
+            "node": "Bubble Callback (Success)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
