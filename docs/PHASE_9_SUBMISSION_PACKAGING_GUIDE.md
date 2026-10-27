@@ -9,7 +9,7 @@ This document provides the final submission package, evaluator access guide, and
 | Deliverable | Location / Resource |
 | :--- | :--- |
 | **GitHub Repository** | `https://github.com/sky2d/bookleaf-2` |
-| **Live Bubble Application** | `https://bookleaf-royalty-portal-93860.bubbleapps.io/version-test` |
+| **Live Bubble Application** | `https://bookleaf-royalty-portal-93860.bubbleapps.io/version-test/login` |
 | **Exported n8n Workflow** | [`bookleaf_n8n_royalty_workflow.json`](../bookleaf_n8n_royalty_workflow.json) |
 | **Master Documentation** | [`README.md`](../README.md) |
 | **Detailed Implementation Plan** | [`PLAN.md`](../PLAN.md) |

@@ -12,7 +12,7 @@ This repository contains the complete implementation of the **BookLeaf Author Ro
 3. **Groq AI Engine (`qwen/qwen3.8-27b`):** Fast inference engine generating personalized, empathetic, policy-grounded royalty summary emails adhering strictly to BookLeaf publishing standards.
 
 ### 🔗 Live URLs & Credentials
-* **Live Bubble Application:** [https://bookleaf-royalty-portal-93860.bubbleapps.io/version-test](https://bookleaf-royalty-portal-93860.bubbleapps.io/version-test)
+* **Live Bubble Application:** [https://bookleaf-royalty-portal-93860.bubbleapps.io/version-test/login](https://bookleaf-royalty-portal-93860.bubbleapps.io/version-test/login)
 * **n8n Automation Cloud:** `https://bookleaf-assign2.app.n8n.cloud`
 * **Workflow Export File:** [`bookleaf_n8n_royalty_workflow.json`](./bookleaf_n8n_royalty_workflow.json)
 
