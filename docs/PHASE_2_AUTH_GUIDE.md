@@ -18,11 +18,11 @@ This document provides step-by-step technical instructions for implementing **Ph
 
 The following test accounts will be created in Bubble (**Data > App Data > All Users > New entry** or via registration workflow):
 
-| Role | Email | Password (Recommended) | Linked Author | Note |
+| Role | Email | Password | Linked Author | Note |
 | :--- | :--- | :--- | :--- | :--- |
-| **Admin** | `admin@bookleaf.com` | `AdminPass@2026` | *(None / empty)* | Full access to Admin Portal, all authors, books, and logs |
-| **Author 1** | `priya.sharma@email.com` | `AuthorPass@2026` | `AUTH001` (Priya Sharma) | Access only to Priya Sharma's books (`BK001`, `BK002`) |
-| **Author 2** | `rohit.kapoor@email.com` | `AuthorPass@2026` | `AUTH002` (Rohit Kapoor) | Access only to Rohit Kapoor's books (`BK003`, `BK004`) |
+| **Admin** | `admin@bookleaf.com` | `admin123` | *(None / empty)* | Full access to Admin Portal, all authors, books, and logs |
+| **Author 1** | `priya.sharma@email.com` | `auth123` | `AUTH001` (Priya Sharma) | Access only to Priya Sharma's books (`BK001`, `BK002`) |
+| **Author 2** | `rohit.kapoor@email.com` | `auth123` | `AUTH002` (Rohit Kapoor) | Access only to Rohit Kapoor's books (`BK003`, `BK004`) |
 
 ---
 

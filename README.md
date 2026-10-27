@@ -16,12 +16,12 @@ This repository contains the complete implementation of the **BookLeaf Author Ro
 * **n8n Automation Cloud:** `https://bookleaf-assign2.app.n8n.cloud`
 * **Workflow Export File:** [`bookleaf_n8n_royalty_workflow.json`](./bookleaf_n8n_royalty_workflow.json)
 
-| Role | Email | Access Method | Access Scope |
+| Role | Email | Password | Access Scope |
 | :--- | :--- | :--- | :--- |
-| **Admin** | `admin@bookleaf.com` | Bubble App Data &rarr; **Run as** (or Collaborator Access) | Full Catalog, Metrics, Directory Filters, Single & Bulk Triggers, Audit Logs |
-| **Author** | `priya.sharma@email.com` | Bubble App Data &rarr; **Run as** (or Collaborator Access) | Personal Books, Lifetime Earnings, Pending Royalties, Payout History |
+| **Admin** | `admin@bookleaf.com` | `admin123` | Full Catalog, Metrics, Directory Filters, Single & Bulk Triggers, Audit Logs |
+| **Author** | `priya.sharma@email.com` | `auth123` | Personal Books, Lifetime Earnings, Pending Royalties, Payout History |
 
-> **Evaluator Note:** To inspect authenticated views directly without setting local passwords, open the Bubble Editor &rarr; navigate to **Data > App data > All Users** &rarr; click **"Run as"** next to `admin@bookleaf.com` (for Admin view) or `priya.sharma@email.com` (for Author view).
+> **Evaluator Note:** Evaluators can log in directly on the live `/login` page with the credentials above, or use Bubble's native **"Run as"** feature in **Data > App data > All Users** next to `admin@bookleaf.com` or `priya.sharma@email.com`.
 
 ---
 

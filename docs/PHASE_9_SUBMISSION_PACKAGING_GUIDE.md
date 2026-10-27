@@ -17,14 +17,19 @@ This document provides the final submission package, evaluator access guide, and
 
 ---
 
-## 2. Evaluator Access Instructions ("Run as")
+## 2. Test Login Credentials & Evaluator Access
 
-To inspect authenticated views in the live Bubble application:
+| Role | Email | Password | Access Scope |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin@bookleaf.com` | `admin123` | Full Catalog, Metrics, Directory Filters, Single & Bulk Triggers, Audit Logs |
+| **Author** | `priya.sharma@email.com` | `auth123` | Personal Books, Lifetime Earnings, Pending Royalties, Payout History |
 
+### Alternative ("Run as"):
+Evaluators can also inspect authenticated views without typing passwords directly in Bubble:
 1. Open the Bubble Editor for the project.
 2. In the left navigation, navigate to **Data > App data > All Users**.
-3. **To evaluate Author Portal:** Click **"Run as"** next to `priya.sharma@email.com` &rarr; opens `/author-dashboard` with personal metrics and strict privacy isolation.
-4. **To evaluate Admin Portal:** Click **"Run as"** next to `admin@bookleaf.com` &rarr; opens `/admin` with the catalog summary strip, dynamic filters, single/bulk triggers, and notification audit logs.
+3. **To evaluate Author Portal:** Click **"Run as"** next to `priya.sharma@email.com` &rarr; opens `/author-dashboard`.
+4. **To evaluate Admin Portal:** Click **"Run as"** next to `admin@bookleaf.com` &rarr; opens `/admin`.
 
 ---
 
