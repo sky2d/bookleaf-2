@@ -15,6 +15,7 @@ This repository contains the complete implementation of the **BookLeaf Author Ro
 * **Live Bubble Application:** [https://bookleaf-royalty-portal-93860.bubbleapps.io/version-test/login](https://bookleaf-royalty-portal-93860.bubbleapps.io/version-test/login)
 * **n8n Automation Cloud:** `https://bookleaf-assign2.app.n8n.cloud`
 * **Workflow Export File:** [`bookleaf_n8n_royalty_workflow.json`](./bookleaf_n8n_royalty_workflow.json)
+* **Engineering Approach & Trade-Offs Note:** [`docs/Brief.md`](./docs/Brief.md)
 
 | Role | Email | Password | Access Scope |
 | :--- | :--- | :--- | :--- |

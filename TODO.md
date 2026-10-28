@@ -437,10 +437,6 @@ This checklist tracks the step-by-step implementation for BookLeaf Technical Ass
   Document test credentials in README: Admin (`admin@bookleaf.com`) and Author (`priya.sharma@email.com`).  
   *Acceptance Criteria:* Clear login credentials provided for evaluators.
 
-- [ ] **Task P9-04** `[Critical]` `[Req: SUB-01]`  
-  Record 3–5 minute screen recording walking through Author Portal, Admin Portal, triggers, n8n execution, and log updates.  
-  *Acceptance Criteria:* Video duration between 3:00 and 5:00 minutes with clear audio commentary.
-
 - [ ] **Task P9-05** `[Critical]` `[Req: SUB-01]`  
   Add BookLeaf's evaluation email as a collaborator in the Bubble editor.  
   *Acceptance Criteria:* Collaborator invitation sent with edit/view permissions.
@@ -449,6 +445,3 @@ This checklist tracks the step-by-step implementation for BookLeaf Technical Ass
   Verify public URL of the deployed Bubble app is accessible in incognito mode.  
   *Acceptance Criteria:* App loads cleanly in incognito window without authentication errors.
 
-- [ ] **Task P9-07** `[Critical]` `[Req: SUB-01]`  
-  Perform final review using Section 15 Submission Checklist in `PLAN.md`.  
-  *Acceptance Criteria:* All submission requirements verified complete.
