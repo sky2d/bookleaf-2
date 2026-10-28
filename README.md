@@ -208,26 +208,3 @@ erDiagram
 > **Rollover Explanation:** Because your current balance of ₹850 is below our minimum bank disbursement threshold of ₹1,000, it will automatically **roll over** to your next quarterly cycle. Once your balance reaches or exceeds ₹1,000, we will process the full amount via direct bank transfer.
 
 ---
-
-## 🎥 3–4 Minute Video Walkthrough Script
-
-When recording your submission walkthrough:
-
-1. **0:00 – 0:45 (Author Portal & Privacy):**
-   - Open `/author-dashboard` logged in as `priya.sharma@email.com`.
-   - Highlight the personal metric strip (Earned, Paid, Pending).
-   - Point out the book catalog and emphasize that other authors' books are inaccessible.
-2. **0:45 – 1:45 (Admin Portal & Filters):**
-   - Switch to `/admin`.
-   - Point out the top Catalog Summary Strip (**10 Authors, 18 Books, ₹40,839 Total Pending**).
-   - Demonstrate real-time search (type "Vikram") and City Filter (select "Mumbai").
-   - Highlight the status badges: `🟢 Fully Paid` on Farhan Sheikh, `🔴 Overdue` on Rohit Kapoor, and `🟡 In Cycle`.
-3. **1:45 – 2:45 (Single Trigger & Live AI Email Generation):**
-   - Click **`View Details`** on Sneha Kulkarni (`AUTH007`).
-   - Click **`✉️ Generate & Send Royalty Summary`**.
-   - Show the button loading state (`⏳ Generating Summary...`).
-   - Open the **`[Summary]`** modal in the audit log to reveal the live Groq AI email with *Midnight in Mysore* in Cover Design!
-4. **2:45 – 3:30 (Bulk Trigger & n8n Architecture):**
-   - Point out the **`⚡ Bulk Trigger`** button and explain the dynamic filter (`royalty_pending:sum > 0`) that skipped Farhan Sheikh.
-   - Show the completed `Bulk` log rows in the audit table.
-   - Briefly show the n8n Cloud canvas with the Webhook & Groq AI nodes.
